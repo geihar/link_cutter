@@ -3,7 +3,7 @@
 {% block content %}
 
     <div id="wrapper">
-        <h1>Укоротить ссылку</h1>
+        <h1 id="title">Укоротить ссылку</h1>
         <form id="signin" method="post" action="">
             {{ form.hidden_tag() }}
             {{ form.link }}
@@ -12,7 +12,12 @@
                 <button id ="copy" type="submit">&#xf0c5;</button>
             {% endif %}
         </form>
+
+    <dialog>
+      <p>Ссылка была скопирована в буфер обмена</p>
+    </dialog>
     </div>
+
 
 {% endblock %}
 

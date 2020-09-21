@@ -67,10 +67,7 @@ a:hover {
 	border-top-right-radius: 8px;
 	border-top-left-radius: 8px;
 }
-#signin input:last-of-type{
-	border-bottom-right-radius: 8px;
-	border-bottom-left-radius: 8px;
-}
+
 #signin  input[type="text"], #signin  input[type="password"], #signin button[type="submit"]{
 	background: rgb(28, 30, 33);
 	box-shadow: inset -100px -100px 0 rgb(28, 30, 33); /*Prevent yellow autofill color*/
@@ -114,29 +111,6 @@ a:hover {
 	cursor: pointer;
 }
 
-#signin button.copy[type="submit"]{
-	display: block;
-	position: absolute;
-	width: 52px;
-	height: 52px;
-	color: rgb(52, 56, 61);
-	border-radius: 50px;
-	outline: 0;
-	z-index: 2;
-	top: -1px;
-	right: 285px;
-	border: 6px solid rgb(52, 56, 61);
-	font-size: 25px;
-	text-indent: 0px;
-	padding-left: 9px;
-	padding-bottom: 3px;
-	text-align: center;
-}
-#signin button.copy[type="submit"]:hover{
-	color: rgb(0, 126, 165);
-	text-shadow: 0 0 10px rgb(0, 126, 165);
-	cursor: pointer;
-}
 #signin p {
 	color: rgb(79, 85, 97);
 	padding: 0 20px;
@@ -189,4 +163,19 @@ table.analytics tr:hover td {
 	width: 100%;
 	max-width: 100%;
 	overflow-x: auto;
+}
+
+dialog{
+	background: rgb(28, 30, 33);
+	box-shadow: inset -100px -100px 0 rgb(28, 30, 33);
+	color: white;
+	width: 400px;
+	height: 100px;
+	border: 0;
+	outline: 0;
+	top: -2px;
+	padding: 0 0 0 20px;
+	font-weight: 700;
+	text-align: center;
+
 }
