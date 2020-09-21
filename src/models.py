@@ -21,7 +21,7 @@ class Link(db.Model):
 
     def set_shortcut(self):
 
-        self.token = ''.join([choice(ascii_lowercase) for _ in range(5)])
+        self.token = "".join([choice(ascii_lowercase) for _ in range(5)])
 
     def add_visits(self):
         self.visits += 1

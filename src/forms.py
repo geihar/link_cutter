@@ -8,5 +8,3 @@ class RegistrationForm(FlaskForm):
         render_kw={"placeholder": "Вставьте ссылку"}, validators=[DataRequired()]
     )
     submit = SubmitField()
-
-

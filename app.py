@@ -13,13 +13,17 @@ from src.forms import RegistrationForm
 def index():
     form = RegistrationForm()
     if form.validate_on_submit():
+        # Heroku config
+        if Link.query.filter_by(link=form.link.data).count() == 5000:
+            db.session.query(Link).delete()
+            db.session.commit()
         if not Link.query.filter_by(link=form.link.data).first():
             link = Link(link=form.link.data)
             link.set_shortcut()
             db.session.add(link)
             db.session.commit()
         t = Link.query.filter_by(link=form.link.data).first()
-        form.link.data = url_for('redirector', token=t.token, _external=True)
+        form.link.data = url_for("redirector", token=t.token, _external=True)
         return render_template("index.html", title="Cutter", form=form, shortcut=True)
     return render_template("index.html", title="Cutter", form=form)
 
@@ -32,8 +36,8 @@ def redirector(token):
         db.session.add(link)
         db.session.commit()
         return redirect(link.link)
-    return redirect(url_for('index'))
+    return redirect(url_for("index"))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
