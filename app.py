@@ -1,4 +1,4 @@
-from flask import Flask, session, url_for, redirect, render_template
+from flask import Flask, url_for, redirect, render_template
 
 from config import Config
 
@@ -13,27 +13,27 @@ from src.forms import RegistrationForm
 def index():
     form = RegistrationForm()
     if form.validate_on_submit():
-        link = Link(link=form.link.data)
-        link.set_token()
-        db.session.add(link)
-        db.session.commit()
-        token = Link(link=form.link.data).token
-        return render_template("index.html", title="Home", token=token)
-    if "token" in session:
-        data = True
-        return render_template("index.html", title="Home", data=data)
-    return render_template("index.html", title="Home", form=form)
+        if not Link.query.filter_by(link=form.link.data).first():
+            link = Link(link=form.link.data)
+            link.set_shortcut()
+            db.session.add(link)
+            db.session.commit()
+        t = Link.query.filter_by(link=form.link.data).first()
+        form.link.data = url_for('redirector', token=t.token, _external=True)
+        return render_template("index.html", title="Cutter", form=form, shortcut=True)
+    return render_template("index.html", title="Cutter", form=form)
 
 
 @app.route("/<token>")
-def authentication(token):
-    user = User.query.filter_by(token=token).first()
-    if user:
-        user.add_visits()
-        db.session.add(user)
+def redirector(token):
+    link = Link.query.filter_by(token=token).first()
+    if link:
+        link.add_visits()
+        db.session.add(link)
         db.session.commit()
-        session["token"] = token
+        return redirect(link.link)
+    return redirect(url_for('index'))
 
-    return redirect(url_for("index"))
+
 if __name__ == '__main__':
     app.run()
